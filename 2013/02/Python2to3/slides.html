@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+
+	<title>The Ups and Downs of Migrating to Python 3: A Pragmatic Approach</title>
+	
+	<!-- Required stylesheet -->
+	<link rel="stylesheet" href="core/deck.core.css">
+	
+	<!-- Extension CSS files go here. Remove or add as needed. -->
+	<link rel="stylesheet" href="extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="extensions/status/deck.status.css">
+	<link rel="stylesheet" href="extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="extensions/scale/deck.scale.css">
+
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="themes/style/neon.css">
+	<link rel="stylesheet" href="theme/pygments.css">
+	<link rel="stylesheet" href="theme/style.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="themes/transition/horizontal-slide.css">
+	
+	<!-- Required Modernizr file -->
+	<script src="modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<!-- Begin slides. Just make elements with a class of slide. -->
+
+<section class="slide">
+
+    <h2>The Ups and Downs of Migrating to Python 3</h2>
+    <h3>A Pragmatic Approach</h3>
+    <p><img alt="python" src="img/python.png" /></p>
+    <ul class="center">
+      <li>Julian Berman</li>
+      <li><a href="http://github.com/Julian">http://github.com/Julian</a></li>
+      <li>tos9 on Freenode (Come visit #python!)</li>
+    </ul>
+
+</section>
+
+<section class="slide">
+
+    <h2>Overview</h1>
+    <p class="center large">What's <strong>New</strong></p>
+    <p class="center large">What's <em>Touchy</em></p>
+    <p class="center large">What's Coming</p>
+
+</section>
+
+<section class="slide">
+
+    <h2>Catching Up</h2>
+    <ul>
+      <li>unittest / unittest2</li>
+      <section class="slide">
+        <div class="highlight">
+          <pre><span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="n">foo</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">bar</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span></pre>
+        </div>
+      </section>
+      <section class="slide">
+        <div class="highlight">
+          <pre><span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">):</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">][</span><span class="mi">42</span><span class="p">]</span></pre></div>
+        </div>
+      </section>
+      <section class="slide">
+        <div class="highlight">
+          <pre><span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">ValidationError</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">,</span> <span class="n">thing</span><span class="p">,</span> <span class="s">&quot;attr&quot;</span><span class="p">)</span></pre>
+        </div>
+      </section>
+      <section class="slide">
+        <div class="highlight">
+          <pre><span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">ValidationError</span><span class="p">):</span>
+    <span class="n">thing</span><span class="o">.</span><span class="n">attr</span></pre>
+        </div>
+      </section>
+      <section class="slide">
+        <li>argparse</li>
+      </section>
+    </ul>
+
+</section>
+
+<section class="slide">
+
+    <h2>Catching Up</h2>
+    <ul>
+      <section class="slide">
+        <li><code>str.format</code> enhancements</li>
+        <div class="highlight">
+          <pre><span class="s">&quot;{} {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">,</span> <span class="s">&quot;!&quot;</span><span class="p">)</span></pre>
+        </div>
+      </section>
+      <section class="slide">
+        <li><code>subprocess.check_output</code></li>
+        <div class="highlight">
+          <pre><span class="gp">&gt;</span>&gt;&gt; subprocess.check_output<span class="o">([</span><span class="s2">&quot;echo&quot;</span>, <span class="s2">&quot;What a pretty kitty!&quot;</span><span class="o">])</span> 
+<span class="go">&#39;What a pretty kitty!&#39;</span></pre>
+        </div>
+      </section>
+      <section class="slide">
+        <li>
+          context manager propagation
+          <ul>
+            <li><code>bz2.BZ2File</code></li>
+            <li><code>zipfile.ZipFile</code></li>
+            <li>...</li>
+          </ul>
+        </li>
+      </section>
+    <section class="slide">
+      <li>set literals and comprehensions</li>
+      <div class="highlight">
+        <pre><span class="gp">&gt;</span>&gt;&gt;<span class="o">{</span>i <span class="k">for </span>i in xrange<span class="o">(</span>10<span class="o">)</span> <span class="k">if </span>i % 2<span class="o">}</span>
+<span class="go">set([1, 3, 5, 7, 9])</span>
+      </div>
+      </li>
+    </section>
+    <section class="slide">
+      <li>dict views</li>
+      <div class="highlight">
+        <pre><span class="gp">&gt;</span>&gt;&gt; <span class="nv">d</span> <span class="o">=</span> <span class="o">{</span>1 : 2, 3 : 4<span class="o">}</span>
+<span class="gp">&gt;</span>&gt;&gt; d.viewkeys<span class="o">()</span> &amp; <span class="o">{</span>1<span class="o">}</span>
+<span class="go">set([1])</span></pre>
+      </div>
+    </section>
+    </ul>
+
+</section>
+
+
+<section class="slide">
+
+    <h2>Conception</h2>
+    <li><h3>Python 2 has "mistakes"</h3></li>
+    <li>
+      <p>
+        No we don't need a special function that does:
+    <div class="highlight"><pre><span class="k">def</span> <span class="nf">input</span><span class="p">():</span>
+    <span class="nb">eval</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+      </p>
+    </li>
+</section>
+
+
+<section class="slide">
+
+    <h2>Wat</h2>
+    <img alt="wat" src="img/wat.jpg" />
+    <div class="highlight">
+      <pre>    <span class="o">&gt <span class="mi">1</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span>
+    <span class="s1">&#39;10&#39;</span></pre></div>
+
+</section>
+
+
+<section class="slide">
+
+    <h2>Wat</h2>
+    <img alt="wat" src="img/cat.jpg" />
+<div class="highlight"><pre><span class="gp">&gt;</span>&gt;&gt; 1 &lt; <span class="s2">&quot;0&quot;</span>
+<span class="go">True</span>
+</pre></div>
+
+</section>
+
+<section class="slide">
+
+    <h2>A million names to be cruel</h2>
+    <h1>url...wat?</h1>
+
+</section>
+
+<section class="slide">
+
+    <h2>Wat</h2>
+    <div class="highlight"><pre><span class="gp">&gt;</span>&gt;&gt; <span class="nv">d</span> <span class="o">=</span> <span class="o">{</span>u<span class="s2">&quot;foo&quot;</span> : 12, b<span class="s2">&quot;bar&quot;</span> : <span class="s2">&quot;monkeys&quot;</span><span class="o">}</span></pre></div>
+<section class="slide">
+
+
+    <div class="highlight"><pre>
+<span class="gp">&gt;</span>&gt;&gt; d<span class="o">[</span>b<span class="s2">&quot;foo&quot;</span><span class="o">]</span>, d<span class="o">[</span>u<span class="s2">&quot;bar&quot;</span><span class="o">]</span>
+<span class="go">(12, &quot;monkeys&quot;)</span></pre></div>
+</section>
+
+</section>
+
+<section class="slide">
+
+    <h2>Wat</h2>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>            
+    <span class="k">return</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span> 
+</pre></div>
+<section class="slide">
+<div class="highlight"><pre>
+<span class="gp">&gt;</span>&gt;&gt; print add<span class="o">(</span>u<span class="s2">&quot;hello&quot;</span>, <span class="s2">&quot;world&quot;</span><span class="o">)</span>
+<span class="go">&quot;hello world&quot;</span></pre></div>
+    </section>
+<section class="slide">
+<div class="highlight"><pre>
+<span class="gp">&gt;</span>&gt;&gt; print add<span class="o">(</span>u<span class="s2">&quot;hello&quot;</span>, <span class="s2">&quot;w ⓞ rld&quot;</span><span class="o">)</span>
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">    ...</span>
+<span class="go">UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xe2 in position 3: ordinal not in range(128)</span></pre>
+      </div>
+    </section>
+</section>
+
+
+<section class="slide">
+
+    <h2>Walk the Line</h2>
+    <ul>
+    <section class="slide"><li class="large"><h3>Python 2 only</h3></li></section>
+    <section class="slide"><li class="large"><h3>Python 3 only</h3></li></section>
+    <section class="slide"><li class="large"><h3>Support everything</h3></li></section>
+    <section class="slide"><li class="large"><h3>Something in between</h3></li></section>
+    </ul>
+
+</section>
+
+
+<section class="slide">
+
+    <h2>So you want to write 2.x+3.x code</h2>
+    <h3>Figure out how!</h3>
+    <ul>
+    <li>
+    <section class="slide"><p><code>2to3</code> (<code>python-modernize</code>)</p></section>
+    </li>
+    <li>
+    <section class="slide"><p><code>3to2</code></p></section>
+    </li>
+    <li>
+    <section class="slide"><p>unified codebase</p></section>
+    </li>
+    </ul>
+
+</section>
+
+
+<section class="slide">
+
+    <h2>So you want to write 2.x+3.x code</h2>
+    <h3><strong>Ignore</strong> &lt;2.6 and &lt;(=)3.1</h3>
+    <div class="highlight"><pre>    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">int</span><span class="p">(</span><span class="s">&quot;Arg!&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">pass</span>
+    
+</section>
+
+
+<section class="slide">
+
+    <h2>So you want to write 2.x+3.x code</h2>
+    <h3>Be clever.</h3>
+    <div class="highlight"><pre>    <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">division</span>
+
+    <span class="k">if</span> <span class="n">PY3</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">urlparse</span>
+        <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">unquote</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+        <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">unicode</span> <span class="o">=</span> <span class="nb">str</span>
+        <span class="n">iteritems</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">methodcaller</span><span class="p">(</span><span class="s">&quot;items&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">izip</span> <span class="k">as</span> <span class="nb">zip</span>
+        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">unquote</span>
+        <span class="kn">from</span> <span class="nn">urllib2</span> <span class="kn">import</span> <span class="n">urlopen</span>
+        <span class="kn">import</span> <span class="nn">urlparse</span>
+        <span class="n">iteritems</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">methodcaller</span><span class="p">(</span><span class="s">&quot;iteritems&quot;</span><span class="p">)</span>
+    
+</pre></div>
+</pre>
+
+</section>
+
+
+<section class="slide">
+
+    <h2>Lighten Up</h2>
+    <p><img alt="tricycle" src="img/tricycle.jpg" /></p>
+
+</section>
+
+
+<section class="slide">
+
+    <h2>The Stragglers</h2>
+    <ul>
+    <li>
+    <section class="slide"><p>alternate implementations</p></section>
+    </li>
+    <li>
+    <section class="slide"><p>networking</p></section>
+    </li>
+    <li>
+    <section class="slide"><p>large frameworks</p></section>
+    </li>
+    <li>
+    <section class="slide"><p>backward compatible conscious</p></section>
+    </li>
+    </ul>
+
+</section>
+
+
+<section class="slide">
+
+    <h2>The Tragic Tale of twisted.internet.test.test_tcp</h2>
+    <section class="slide"><div class="highlight"><pre>    <span class="nv">$ </span>bin/trial twisted.test.test_tcp
+    ...
+    Ran 36 tests in 0.875s
+</pre></div></section>
+    <section class="slide"><div class="highlight"><pre><span class="nv">$ </span>admin/run-python3-tests twisted.test.test_tcp
+    ...
+    Ran 36 tests in 38.698s
+</pre></div></section>
+</pre></div>
+</pre>
+
+</section>
+
+
+<section class="slide">
+
+    <h2>zerozerozerozero</h2>
+    <li>Python 2:</li>
+    <div class="highlight"><pre>
+<span class="gp">&gt;</span>&gt;&gt; bytes<span class="o">(</span>14<span class="o">)</span>
+<span class="go">&#39;14&#39;</span>
+
+</pre></div>
+<section class="slide">
+    <li>Python 3:</li>
+    <div class="highlight"><pre>
+<span class="gp">&gt;</span>&gt;&gt; bytes<span class="o">(</span>14<span class="o">)</span>
+<span class="go">b&#39;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00&#39;</span>
+</pre></div>
+
+</section>
+</section>
+
+
+<section class="slide">
+
+    <h2>contextlib.ExitStack</h2>
+    <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="nb">file</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">file</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;a/default/file&quot;</span><span class="p">)</span>
+            <span class="n">cleanup_needed</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">perform_operation</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">cleanup_needed</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cleanup_needed</span><span class="p">:</span>
+                <span class="n">cleanup_resources</span><span class="p">()</span>
+    
+</pre></div>
+
+</section>
+
+
+<section class="slide">
+
+    <h2>contextlib.ExitStack</h2>
+    <div class="highlight"><pre>    <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">ExitStack</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="nb">file</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">file</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;a/default/file&quot;</span><span class="p">)</span>
+                <span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+            <span class="n">process</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    
+</pre></div>
+
+</section>
+<section class="slide">
+
+    <h2>Oh no! An exception!</h2>
+<section class="slide">
+    <div class="highlight"><pre>    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;document.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">err</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">ENOENT</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">raise</span></pre></div>
+</section>
+<section class="slide">
+<div class="highlight"><pre><span class="k">try</span><span class="p">:</span>                                
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;document.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
+        <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>          
+<span class="k">except</span> <span class="n">FileNotFoundError</span><span class="p">:</span>           
+    <span class="k">pass</span>                            
+</pre></div>
+</section>
+    
+</section>
+<section class="slide">
+
+    <h2>Subtests</h2>
+    <div class="highlight"><pre>    <span class="k">class</span> <span class="nc">TestMultiplication</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">test_multiply</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)):</span>
+                    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">subTest</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">multiply</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">i</span> <span class="o">*</span> <span class="n">j</span><span class="p">)</span>
+    
+</section>
+
+<section class="slide">
+
+    <h2>Optional Subparsers</h2>
+    <div class="highlight"><pre>    <span class="nv">$ </span>git --version
+    <span class="nv">$ </span>git commit -m <span class="s2">&quot;Hi!&quot;</span>
+    <span class="nv">$ </span>git --color commit -m <span class="s2">&quot;Hi!&quot;</span>
+    
+</section>
+
+<section class="slide">
+
+    <h1>Thanks</h1>
+
+</section>
+
+<!-- End slides. -->
+
+
+<!-- Begin extension snippets. Add or remove as needed. -->
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+<!-- End extension snippets. -->
+
+
+<!-- Required JS files. -->
+<script src="jquery-1.7.2.min.js"></script>
+<script src="core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="core/deck.core.js"></script>
+<script src="extensions/hash/deck.hash.js"></script>
+<script src="extensions/menu/deck.menu.js"></script>
+<script src="extensions/goto/deck.goto.js"></script>
+<script src="extensions/status/deck.status.js"></script>
+<script src="extensions/navigation/deck.navigation.js"></script>
+<script src="extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+	$(function() {
+		$.deck('.slide');
+	});
+</script>
+</body>
+</html>

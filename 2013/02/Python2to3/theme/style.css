@@ -1,0 +1,11 @@
+p.large {
+    font-size: 4em;
+}
+
+.center {
+    text-align: center;
+}
+
+ul.center {
+    list-style-type: none;
+}
