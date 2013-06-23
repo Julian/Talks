@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Python - 8 Languages in 8 Months</title>
+
+    <meta name="description" content="Python">
+    <meta name="author" content="Julian Berman">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/monokai.css">
+
+    <!-- Overrides / Additional Styles (Julian) -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <section>
+          <h1>Python</h1>
+          <h3>Julian Berman</h3>
+          <p>
+            <small><a href="https://github.com/Julian">https://github.com/Julian</a></small>
+          </p>
+        </section>
+
+        <section>
+          <h2>Generalities</h2>
+          <ul>
+            <li>Readable</li>
+            <li>Simple</li>
+            <li>Dynamic</li>
+            <li>Interpreted</li>
+            <li>
+              <p>Strongly typed</p>
+              <ul class="fragment">
+                <li><pre><code class="python">2 + "2"</code></pre></li>
+                <li class="fragment">
+                  <pre><code data-trim contenteditable>
+Traceback (most recent call last):
+  File "input", line 1, in module
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+                  </code></pre>
+                </li>
+              </ul>
+            </li>
+
+          <aside class="notes">
+            Simple syntactically and conceptually
+            Strongly typed not so well defined
+          </aside>
+        </section>
+
+        <section>
+          <h2>Environment</h2>
+            <ul>
+              <li>Open source</li>
+              <li>Mature</li>
+              <li>Large community</li>
+              <li>Preinstalled</li>
+            </ul>
+          </ul>
+
+          <aside class="notes">
+            Almost 25 years old (1991)
+          </aside>
+        </section>
+
+        <section>
+          <p>That funny language with semantic whitespace</p>
+        </section>
+
+        <section>
+          <h2>Competency</h2>
+        </section>
+
+        <section>
+          <h2>Basics</h2>
+          <pre><code data-trim contenteditable>
+>>> 12 + 2
+14
+          </code></pre>
+
+          <pre><code data-trim contenteditable>
+>>> "hello" + ' ' + "world"
+"hello world"
+          </code></pre>
+
+          <pre><code data-trim contenteditable>
+>>> cats = 12.3
+>>> lives = 9j
+>>> print cats * lives
+110.7j
+          </code></pre>
+
+          <aside class="notes">
+            >>> when I want to show output
+            Interpreter demo
+            Python 2.7
+            BigInts
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>Data Types</h2>
+
+          <pre><code class="python" data-trim contenteditable>
+favorite_things = ["dogs", "Filbert", "Jackie Chan"]
+          </code></pre class="fragment">
+
+          <pre class="fragment"><code class="python" data-trim contenteditable>
+row = "Enrico", True, 1, "Narcoleptic", ["Wallet", "Key"]
+          </code></pre class="fragment">
+
+          <pre class="fragment"><code class="python" data-trim contenteditable>
+vehicles = {"Thomas", "Lightning McQueen"}
+          </code></pre class="fragment">
+
+          <pre class="fragment"><code class="python" data-trim contenteditable>
+board = {
+    "A2" : ("White", "Pawn"),
+    "B1" : ("White", "Rook"),
+    "B8" : ("Black", "Rook"),
+    "F5" : ("Black", "Knight"),
+    "G7" : ("White", "King"),
+    "H7" : ("Black", "King"),
+}
+          </code></pre class="fragment">
+
+          <aside class="notes">
+            Sets and dictionaries have same literal syntax, other than :
+            (actually causes some headaches for empty sets but it was judged worthwhile)
+            Standard library (later) has plenty of other types
+            Demo indexing + slicing with square brackets -- same for list, dict, tuple
+            (in fact for larger class of objects in a protocol mentioned later)
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>Functions and Loops</h2>
+
+          <pre><code class="python" data-trim contenteditable>
+def print_long_things(things, longer_than=3, finish_msg="Done!"):
+    for thing in things:
+        if len(thing) > longer_than:
+            print thing
+    print finish_msg
+          </code></pre>
+
+          <aside class="notes">
+            First example of semantic whitespace
+            Pass either by name or positionally
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>Functions and Loops</h2>
+
+          <pre><code class="python" data-trim contenteditable>
+def print_long_things(things, longer_than=3, finish_msg="Done!"):
+    for thing in things:
+        if len(thing) > longer_than:
+            print thing
+    print finish_msg
+
+>>> print_long_things(["the", "quick", "brown", "fox"])
+quick
+brown
+Done!
+          </code></pre>
+
+          <aside class="notes">
+            Pass either by name or positionally
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>Functions and Loops</h2>
+
+          <pre><code class="python" data-trim contenteditable>
+def print_long_things(things, longer_than=3, finish_msg="Done!"):
+    for thing in things:
+        if len(thing) > longer_than:
+            print thing
+    print finish_msg
+
+>>> print_long_things(things=["cat", "walrus"], finish_msg="OK!")
+walrus
+OK!
+          </code></pre>
+
+          <aside class="notes">
+            Pass either by name or positionally
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>Comprehensions</h2>
+
+          <pre><code class="python" data-trim contenteditable>
+numbers = range(10)
+          </code></pre>
+
+          <ul>
+            <li><pre class="fragment"><code class="python" data-trim contenteditable>
+  [1, 2, 3]
+            </code></pre></li>
+
+            <li><pre class="fragment"><code class="python" data-trim contenteditable>
+  [number ** 2 for number in numbers]
+            </code></pre></li>
+          </ul>
+
+          <ul>
+            <li><pre class="fragment"><code class="python" data-trim contenteditable>
+  {1, 2, 3}
+            </code></pre></li>
+
+            <li><pre class="fragment"><code class="python" data-trim contenteditable>
+  {float(number) for number in numbers if number % 2 == 0}
+            </code></pre></li>
+          </ul>
+
+          <ul>
+            <li><pre class="fragment"><code class="python" data-trim contenteditable>
+  {1 : 2, 3 : 4}
+            </code></pre></li>
+
+            <li><pre class="fragment"><code class="python" data-trim contenteditable>
+  {number : number ** 2 for number in numbers if number % 2 == 0}
+            </code></pre></li>
+          </ul>
+
+          <aside class="notes">
+            range: makes a list half-open
+            modulus
+            Concise ways to build lists, sets, dicts, generators out of existing objects
+            number is a formal variable
+            That's it for basic syntax and constructs, we haven't mentioned classes yet but we will
+            Start to talk about higher level concepts to give you a better feel for the language
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>Generator Expressions</h2>
+
+          <pre><code class="python" data-trim contenteditable>
+(number ** 2 for number in numbers if number % 2 == 0)
+          </code></pre>
+
+          <aside class="notes">
+            Jumping ahead of ourselves a bit
+            There is a long (function) form -- probably won't show it
+            Generator: if you loop over it, you successively calculate each element
+          </aside>
+        </section>
+
+        <section>
+          <h2>Synthesis</h2>
+        </section>
+
+        <section>
+          <h2>Synthesis</h2>
+
+          <ul>
+            <li><em>Everything</em> is an object.</li>
+            <li>Most operations are overloadable.</li>
+            <li>Many batteries are included <span style="font-size: 0.5em;">(though some are defective)</span>.</li>
+            <li><b>No</b> object is special.</li>
+          </ul>
+
+          <aside section="notes">
+            Operations - language hooks
+            No object is special - a bit of a lie, but it's mostly true. We may see examples later
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>Objects</h2>
+
+          <pre><code class="python" data-trim contenteditable>
+>>> greeting = "yo"
+>>> make_loud_greeting = greeting.upper
+>>> print make_loud_greeting()
+"YO"
+          </code></pre>
+
+          <pre class="fragment"><code class="python" data-trim contenteditable>
+>>> movements = [1, -3, 5, 2, 3, -7, 4, 0, 2, -2]
+>>> for movement in sorted(movements, key=abs):
+...     print movement
+0
+1
+2
+2
+-2
+-3
+3
+4
+5
+-7
+          </code></pre>
+
+          <aside class="notes">
+            Data + attributes
+            First class functions, classes, everything
+            DSU
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>How I Learned to Stop Typing and Love the Duck</h2>
+
+          <blockquote class="fragment">"If it quacks like a duck, walks like a duck..."</blockquote>
+        </section>
+
+        <section>
+          <h2>How I Learned to Stop Typing and Love the Duck</h2>
+
+          <blockquote><strike>"If it quacks like a duck, walks like a duck..."</strike></blockquote>
+        </section>
+
+        <section>
+          <h2>Ducks</h2>
+          <p>Types</p>
+          <p class="fragment">Great for compilers</p>
+          <p class="fragment">Not so great for humans</p>
+
+          <aside class="notes">
+            Why? Don't need to know Python to know why.
+            Fight the compiler to get it to accept a value.
+            Mocking.
+            There are plenty of solutions -- formal interfaces in Java and other languages.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Ducks</h2>
+          <pre><code class="java" data-trim contenteditable>
+class File {
+  ...
+}
+
+class Parser {
+    new(File inputFile) {
+        List buffer = []
+        while (String line = inputFile.readline() != EOF) {
+            buffer.append(parse(line))
+        }
+    }
+}
+          </code></pre>
+
+          <aside class="notes">
+            Point not the declarations
+          </aside>
+        </section>
+
+        <section>
+          <h2>Ducks</h2>
+          <pre><code class="java" data-trim contenteditable>
+class File extends Enumerable {
+  ...
+}
+
+class Parser {
+    new(Enumerable input) {
+        List buffer = []
+        while (String line = input.next() != EOI) {
+            buffer.append(parse(line))
+        }
+    }
+}
+          </code></pre>
+
+          <aside class="notes">
+            Don't mean to pick on any language
+            Most languages try to address some of the problem
+            Simply want to put in context
+          </aside>
+        </section>
+
+        <section>
+          <h2>Ducks</h2>
+          <ul>
+            <li>I want a <em>sequence</em></li>
+            <li class="fragment">Do you have the right methods?</li>
+            <li class="fragment">You're good to go.</li>
+          </ul>
+
+          <aside class="notes">
+            Iterable is a *protocol*
+            For the most part they are informal -- specifications of methods
+            Can be formalized (zope.interface, ABCs)
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>Ducks</h2>
+          <ul>
+            <li>I want to call a function</li>
+            <li class="fragment">What kind of object does it expect?</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>sorted</h2>
+          <pre><code class="python" data-trim contenteditable>
+>>> sorted([2, 4, 3])
+[2, 3, 4]
+          </code></pre>
+
+          <pre class="fragment">sorted(iterable, cmp=None, key=None, reverse=False) --> new sorted list</pre>
+
+          <aside class="notes">
+            Any iterable -- define your class with an order, magically sortable
+          </aside>
+        </section>
+
+        <section>
+          <a href="http://docs.python.org/2/library/collections.html#collections-abstract-base-classes">Protocols</a>
+
+          <aside class="notes">
+            Some documented, some not (file) by their nature. Similar to your own protocols in your app.
+            Point out what things are containers, talk about slicing, *, empty containers + falsity
+            Transition to DBAPI and talking about the stdlib
+          </aside>
+        </section>
+
+        <section>
+          <h3>Let's Be Concrete</h3>
+
+          <aside class="notes">
+            TDD: Graph
+            Exceptions
+            Big step: test_neighbors
+            __getitem__, then __init__
+            introduce defaultdict
+            __iter__ and __contains__
+            max(graph)
+            heterogeneous types -- nonsensical (Py2 Py3)
+          </aside>
+
+        </section>
+
+        <section>
+          <h3>The Standard Library</h3>
+
+          <aside class="notes">
+            It's big.
+          </aside>
+
+        </section>
+
+        <section>
+          <h2>Full Stack</h2>
+          <ul>
+            <li>MUA / MTA (<a href="https://github.com/pazz/alot">alot</a> and <a href="http://pyropus.ca/software/getmail/">getmail</a>)</li
+            <li>Web Server</li>
+            <li>Editor Plugins</li>
+            <li>Window Manager (<a href="http://qtile.org/">Qtile</a>)</li>
+            <li>Server automation (<a href="http://docs.fabfile.org/en/1.6/">Fabric</a>)</li>
+          </ul>
+
+          <aside class="notes">
+            Shell scripting
+            Ansible provisioning
+          </aside>
+        </section>
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [
+    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+    ]
+    });
+
+    </script>
+
+  </body>
+</html>
