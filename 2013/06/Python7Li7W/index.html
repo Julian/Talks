@@ -46,6 +46,7 @@
           <p>
             <small><a href="https://github.com/Julian">https://github.com/Julian</a></small>
           </p>
+          <p><small>tos9@Freenode</small></<p>
         </section>
 
         <section>
@@ -68,9 +69,10 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'
                 </li>
               </ul>
             </li>
+          </ul>
 
           <aside class="notes">
-            Simple syntactically and conceptually
+            Simple syntactically and conceptually - "Zen"
             Strongly typed not so well defined
           </aside>
         </section>
@@ -83,7 +85,6 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'
               <li>Large community</li>
               <li>Preinstalled</li>
             </ul>
-          </ul>
 
           <aside class="notes">
             Almost 25 years old (1991)
@@ -312,10 +313,12 @@ numbers = range(10)
         <section>
           <h2>Objects</h2>
 
-          <pre class="fragment"><code class="python" data-trim contenteditable>
+          <pre><code class="python" data-trim contenteditable>
 >>> movements = [1, -3, 5, 2, 3, -7, 4, 0, 2, -2]
 >>> for movement in sorted(movements, key=abs):
 ...     print movement
+          </code></pre>
+          <pre class="fragment"><code class="python" data-trim contenteditable>
 0
 1
 2
@@ -332,6 +335,20 @@ numbers = range(10)
             Data + attributes
             First class functions, classes, everything
             DSU
+          </aside>
+
+        </section>
+
+        <section>
+          <p>Python is like the <em>NSA</em></p>
+          <p class="fragment">Nothing is <b>private</b>.</p>
+
+          <aside class="notes">
+            No object is secret
+            There is no such thing as a private method or function.
+            Why is that? Why do we make things private?
+            Demo properties?
+            No constants. Why?
           </aside>
 
         </section>
@@ -435,11 +452,17 @@ class Parser {
         <section>
           <h2>sorted</h2>
           <pre><code class="python" data-trim contenteditable>
->>> sorted([2, 4, 3])
-[2, 3, 4]
+>>> sorted(["the", "cat", "in", "the", "hat"])
+['cat', 'hat', 'in', 'the', 'the']
           </code></pre>
 
-          <pre class="fragment">sorted(iterable, cmp=None, key=None, reverse=False) --> new sorted list</pre>
+          <pre class="fragment">sorted(iterable, cmp=None, key=None, reverse=False)
+      --> new sorted list</pre>
+
+          <pre class="fragment"><code class="python" data-trim contenteditable>
+with open("shakespeare.txt") as input_file:
+    print sorted(input_file)
+          </code></pre>
 
           <aside class="notes">
             Any iterable -- define your class with an order, magically sortable
@@ -450,7 +473,7 @@ class Parser {
           <a href="http://docs.python.org/2/library/collections.html#collections-abstract-base-classes">Protocols</a>
 
           <aside class="notes">
-            Some documented, some not (file) by their nature. Similar to your own protocols in your app.
+            Some documented, some not (file -- show StringIO) by their nature. Similar to your own protocols in your app.
             Point out what things are containers, talk about slicing, *, empty containers + falsity
             Transition to DBAPI and talking about the stdlib
           </aside>
@@ -464,7 +487,7 @@ class Parser {
             Exceptions
             Big step: test_neighbors
             __getitem__, then __init__
-            introduce defaultdict
+            introduce defaultdict (OrderedDict, deque)
             __iter__ and __contains__
             max(graph)
             heterogeneous types -- nonsensical (Py2 Py3)
@@ -474,17 +497,79 @@ class Parser {
 
         <section>
           <h3>The Standard Library</h3>
+          <p class="fragment">itertools</p>
 
           <aside class="notes">
+            Demo chain, cycle, product
             It's big.
+            No distinction between stdlib and your own code and third party code
           </aside>
 
         </section>
 
         <section>
+          <h3>The Standard Library</h3>
+          <p>subprocess</p>
+
+          <pre><code class="python" data-trim contenteditable>
+import subprocess
+processes = subprocess.check_output(["ps", "aux"])
+          </code></pre>
+
+          <aside class="notes">
+            Demo .splitlines() and .split() to get columns
+          </aside>
+        </section>
+
+        <section>
+          <h3>The Rest</h3>
+
+          <ul>
+            <li><pre>os</pre></li>
+            <li><pre>os.path</pre></li>
+            <li><pre>sys</pre></li>
+            <li><pre>glob</pre></li>
+          </ul>
+
+          <pre><code data-trim contenteditable>
+import os
+import glob
+import sys
+
+
+for path in glob.iglob("css/*.css"):
+    sys.stdout.write(os.path.abspath(path) + " ")
+          </code></pre>
+
+        </section>
+
+        <section>
+          <h3>The Rest</h3>
+          <ul>
+            <li><pre>argparse</pre></li>
+            <li><pre>json</pre></li>
+            <li><pre>sqlite3</pre></li>
+            <li>Compression libraries</li>
+            <li><pre>decimal, math, fractions</pre></li>
+            <li><pre>Tkinter</pre></li>
+            <li><pre>gettext</pre></li>
+            <li><pre>difflib</pre></li>
+            <li><pre>bisect</pre></li>
+            <li><pre>logging</pre></li>
+          </ul>
+
+          <aside class="notes">
+            tar, zip, zlib, gzip, bz2
+            shlex
+            AST
+            csv, ConfigParser
+          </aside>
+        </section>
+
+        <section>
           <h2>Full Stack</h2>
           <ul>
-            <li>MUA / MTA (<a href="https://github.com/pazz/alot">alot</a> and <a href="http://pyropus.ca/software/getmail/">getmail</a>)</li
+            <li>MUA / MTA (<a href="https://github.com/pazz/alot">alot</a> and <a href="http://pyropus.ca/software/getmail/">getmail</a>)</li>
             <li>Web Server</li>
             <li>Editor Plugins</li>
             <li>Window Manager (<a href="http://qtile.org/">Qtile</a>)</li>
