@@ -160,7 +160,7 @@ board = {
             Sets and dictionaries have same literal syntax, other than :
             (actually causes some headaches for empty sets but it was judged worthwhile)
             Standard library (later) has plenty of other types
-            Demo indexing + slicing with square brackets -- same for list, dict, tuple
+            Demo indexing + slicing + negative indexing with square brackets -- same for list, dict, tuple
             (in fact for larger class of objects in a protocol mentioned later)
           </aside>
 
@@ -267,7 +267,7 @@ numbers = range(10)
           <aside class="notes">
             range: makes a list half-open
             modulus
-            Concise ways to build lists, sets, dicts, generators out of existing objects
+            Concise ways (syntactic sugar) to build lists, sets, dicts, generators out of existing objects
             number is a formal variable
             That's it for basic syntax and constructs, we haven't mentioned classes yet but we will
             Start to talk about higher level concepts to give you a better feel for the language
@@ -282,9 +282,16 @@ numbers = range(10)
 (number ** 2 for number in numbers if number % 2 == 0)
           </code></pre>
 
+          <pre class="fragment"><code class="python" data-trim contenteditable>
+def make_numbers(numbers):
+    for number in numbers:
+        if number % 2:
+            yield number
+          </code></pre>
+
           <aside class="notes">
             Jumping ahead of ourselves a bit
-            There is a long (function) form -- probably won't show it
+            There is a long (function) form
             Generator: if you loop over it, you successively calculate each element
           </aside>
         </section>
@@ -474,7 +481,7 @@ with open("shakespeare.txt") as input_file:
 
           <aside class="notes">
             Some documented, some not (file -- show StringIO) by their nature. Similar to your own protocols in your app.
-            Point out what things are containers, talk about slicing, *, empty containers + falsity
+            Point out what things are containers, *, empty containers + falsity, sorted + lexical ordering
             Transition to DBAPI and talking about the stdlib
           </aside>
         </section>
