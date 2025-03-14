@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import os
+import sys
+
+content = Path(__file__).parent / "content.md"
+
+demo = Path("~/Desktop/pdldemo").expanduser()
+if demo.exists():
+    msg =  f"{demo} already exists but the presentation will try to create it."
+    sys.exit(msg)
+
+os.execlp(
+    "presenterm",
+    "presenterm",
+    "-x",
+    content,
+    "--theme",
+    "catppuccin-frappe"
+)
