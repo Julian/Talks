@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import os
+
+content = Path(__file__).parent / "content.md"
+
+os.execlp(
+    "presenterm",
+    "presenterm",
+    "-x",
+    content,
+    "--theme",
+    "catppuccin-frappe"
+)
