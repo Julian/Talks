@@ -2,7 +2,7 @@
 title: Git & GitHub
 sub_title: for Total Beginners
 location: Columbia University PDL
-date: 2025/3/26
+date: 2026/2/18
 author: Julian Berman
 ---
 
@@ -43,11 +43,11 @@ Hi.
 
 <!-- new_lines: 8 -->
 
-![image](octoverse-2024-topline-metrics.png)
+![image](octoverse-2025-topline-metrics.png)
 
 <!-- new_lines: 2 -->
 
-*GitHub Octoverse 2024*
+[*GitHub Octoverse 2025*](https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/)
 
 (Hit 100M active users in 2023)
 
