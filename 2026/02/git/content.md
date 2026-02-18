@@ -13,8 +13,6 @@ Hi.
 
 <!-- column: 0 -->
 
-<!-- new_lines: 3 -->
-
 ![image:width:33%](github.png)
 
 <!-- new_lines: 3 -->
@@ -25,17 +23,16 @@ Hi.
 
 <!-- column: 1 -->
 
-<!-- new_lines: 5 -->
-
 ![image](jsonschemalogo.png)
 ![image](leannvimlogo.png)
 
-<!-- new_lines: 2 -->
+<!-- new_lines: 1 -->
 
 ---
 
-<!-- new_lines: 2 -->
+<!-- new_lines: 1 -->
 
+![image:width:40%](quantumriselogo.png)
 ![image:width:40%](deloittedigitallogo.png)
 ![image:width:40%](postmanlogo.png)
 
