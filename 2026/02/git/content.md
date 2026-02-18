@@ -119,9 +119,8 @@ Overview
 <!-- column: 1 -->
 <!-- jump_to_middle -->
 
-- Using `git` via the GitHub interface
-- Compare Working on someone else's project
-- Using `git` from VSCode
+- Way(s) to use `git`
+- Collaboration via `GitHub`
 
 <!-- pause -->
 
@@ -170,8 +169,8 @@ https://skills.github.com/
 
 <!-- column: 1 -->
 <!-- jump_to_middle -->
-https://classroom.github.com/a/341n0yp6
-=======================================
+https://github.com/JulianEducation/pdl-git-2026
+===============================================
 
 <!-- end_slide -->
 
